@@ -148,8 +148,8 @@ def _generate_nvidia(config, bus_ids, xorg_extra):
 
     text += "Section \"Device\"\n" \
             "\tIdentifier \"igpu\"\n" \
-            "\tDriver \"modesetting\"\n"
-    text += "EndSection\n\n"
+            "\tDriver \"modesetting\"\n" \
+            "EndSection\n\n"
 
     text += "Section \"Screen\"\n" \
             "\tIdentifier \"igpu\"\n" \
@@ -184,7 +184,7 @@ def _generate_hybrid_intel(config, bus_ids, xorg_extra):
 
     text += "Section \"Device\"\n" \
             "\tIdentifier \"nvidia\"\n" \
-            "\tDriver \"nvidia\"\n"
+            "\tDriver \"nvidia\"\n" \
             "EndSection\n\n"
 
     return text
@@ -206,7 +206,7 @@ def _generate_hybrid_amd(config, bus_ids, xorg_extra):
 
     text += "Section \"Device\"\n" \
             "\tIdentifier \"nvidia\"\n" \
-            "\tDriver \"nvidia\"\n"
+            "\tDriver \"nvidia\"\n" \
             "EndSection\n\n"
 
     return text
