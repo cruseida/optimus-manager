@@ -178,14 +178,14 @@ def _generate_hybrid_intel(config, bus_ids, xorg_extra):
     text += _make_intel_device_section(config, bus_ids, xorg_extra)
 
     text += "Section \"Screen\"\n" \
-           "\tIdentifier \"intel\"\n" \
-           "\tDevice \"intel\"\n" \
-           "EndSection\n\n"
+            "\tIdentifier \"intel\"\n" \
+            "\tDevice \"intel\"\n" \
+            "EndSection\n\n"
 
     text += "Section \"Device\"\n" \
-           "\tIdentifier \"nvidia\"\n" \
-           "\tDriver \"nvidia\"\n"
-           "EndSection\n\n"
+            "\tIdentifier \"nvidia\"\n" \
+            "\tDriver \"nvidia\"\n"
+            "EndSection\n\n"
 
     return text
 
@@ -200,14 +200,14 @@ def _generate_hybrid_amd(config, bus_ids, xorg_extra):
     text += _make_amd_device_section(config, bus_ids, xorg_extra)
 
     text += "Section \"Screen\"\n" \
-           "\tIdentifier \"amd\"\n" \
-           "\tDevice \"amd\"\n" \
-           "EndSection\n\n"
+            "\tIdentifier \"amd\"\n" \
+            "\tDevice \"amd\"\n" \
+            "EndSection\n\n"
 
     text += "Section \"Device\"\n" \
-           "\tIdentifier \"nvidia\"\n" \
-           "\tDriver \"nvidia\"\n"
-           "EndSection\n\n"
+            "\tIdentifier \"nvidia\"\n" \
+            "\tDriver \"nvidia\"\n"
+            "EndSection\n\n"
 
     return text
 
