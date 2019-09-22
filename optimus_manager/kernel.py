@@ -12,18 +12,24 @@ class KernelSetupError(Exception):
 
 def setup_kernel_state(config, requested_gpu_mode):
 
-    assert requested_gpu_mode in ["intel", "nvidia", "hybrid"]
+    assert requested_gpu_mode in ["nvidia", "intel", "amd", "hybrid-intel", "hybrid-amd"]
 
-    if requested_gpu_mode == "intel":
-        _setup_intel_mode(config)
-
-    elif requested_gpu_mode == "nvidia":
+    if requested_gpu_mode == "nvidia":
         _setup_nvidia_mode(config)
 
-    elif requested_gpu_mode == "hybrid":
+    elif requested_gpu_mode == "intel":
+        _setup_igpu_mode(config, "intel")
+
+    elif requested_gpu_mode == "amd":
+        _setup_igpu_mode(config, "amd")
+
+    elif requested_gpu_mode == "hybrid-intel":
         _setup_hybrid_mode(config)
 
-def _setup_intel_mode(config):
+    elif requested_gpu_mode == "hybrid-amd":
+        _setup_hybrid_mode(config)
+
+def _setup_igpu_mode(config, igpu):
 
     # Resetting the system to its base state
     _set_base_state(config)
@@ -32,7 +38,7 @@ def _setup_intel_mode(config):
     if config["optimus"]["switching"] == "nouveau":
 
         try:
-            _load_nouveau(config)
+            _load_nouveau(config, igpu)
         except KernelSetupError as e:
             print("ERROR : cannot load nouveau. Moving on. Error is : %s" % str(e))
 
@@ -148,11 +154,11 @@ def _unload_nvidia_modules():
     except BashError as e:
         raise KernelSetupError("Cannot unload Nvidia modules : %s" % str(e))
 
-def _load_nouveau(config):
+def _load_nouveau(config, igpu):
 
     print("Loading nouveau module")
 
-    modeset_value = 1 if config["intel"]["modeset"] == "yes" else 0
+    modeset_value = 1 if config[igpu]["modeset"] == "yes" else 0
 
     try:
         exec_bash("modprobe nouveau modeset=%d" % modeset_value)

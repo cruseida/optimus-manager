@@ -25,7 +25,12 @@ def read_gpu_mode():
         exec_bash("glxinfo | grep NVIDIA")
         return "nvidia"
     except BashError:
-        return "intel"
+        try:
+            exec_bash("glxinfo | grep AMD")
+            return "amd"
+        except BashError:
+            return "intel"
+
 
 
 def is_module_available(module_name):
@@ -68,6 +73,10 @@ def using_patched_GDM():
 
 def is_xorg_intel_module_available():
     return os.path.isfile("/usr/lib/xorg/modules/drivers/intel_drv.so")
+
+
+def is_xorg_amd_module_available():
+    return os.path.isfile("/usr/lib/xorg/modules/drivers/amdgpu_drv.so")
 
 
 def is_login_manager_active():
