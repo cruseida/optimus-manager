@@ -26,10 +26,10 @@ def setup_kernel_state(config, requested_gpu_mode):
         _setup_igpu_mode(config, available_modules, "amd")
 
     elif requested_gpu_mode == "hybrid-intel":
-        _setup_hybrid_mode(config)
+        _setup_hybrid_mode(config, available_modules)
 
     elif requested_gpu_mode == "hybrid-amd":
-        _setup_hybrid_mode(config)
+        _setup_hybrid_mode(config, available_modules)
 
 def _setup_igpu_mode(config, available_modules, igpu):
 
